@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 注意mapperLocations配置 -->
+<!-- mvn mybatis-generator:generate -->
+<generatorConfiguration>
+    <!-- 数据库驱动jar路径 -->
+    <classPathEntry location="/Users/xujiangjun/.m2/repository/mysql/mysql-connector-java/5.1.35/mysql-connector-java-5.1.35.jar"/>
+    <context id="MySQL" targetRuntime="com.xujiangjun.mybatis.generator.CustomIntrospectedTableMyBatis3Impl">
+        <property name="suppressAllComments" value="true"/>
+        <property name="useActualColumnNames" value="false"/>
+        <!-- 解决中文注释乱码问题 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 生成作者，实际开发时请自行更改  -->
+        <property name="author" value="xujiangjun"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 不需要在mapper.xml中声明jdbcType -->
+        <property name="suppressColumnType" value="true"/>
+        <property name="xmlFormatter" value="com.xujiangjun.mybatis.generator.formatter.CustomXmlFormatter"/>
+        <!-- 自定义生成的mapper以及xml的内容 -->
+        <plugin type="com.xujiangjun.mybatis.generator.CustomGeneratorPlugin">
+            <property name="author" value="xujiangjun"/>
+        </plugin>
+        <!-- 实体类注释生成器 -->
+        <commentGenerator type="com.xujiangjun.mybatis.generator.CustomCommentGenerator">
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <!-- 生成作者，实际开发时请自行更改 -->
+        	<property name="author" value="xujiangjun"/>
+        </commentGenerator>
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码，仅用于测试，实际开发时请自行更改 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        	connectionURL="jdbc:mysql://127.0.0.1:3306/example" userId="root" password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver type="com.xujiangjun.mybatis.generator.resolver.CustomJavaTypeResolver">
+            <property name="forceBigDecimals" value="false"/>
+            <property name="jdbcType.TINYINT" value="java.lang.Integer"/>
+        </javaTypeResolver>
+
+        <!-- 配置model生成位置 -->
+        <javaModelGenerator targetPackage="com.xujiangjun.example.dao.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 配置sql map生成位置 -->
+        <sqlMapGenerator targetPackage="/META-INF/mybatis/mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 配置mapper接口生成位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xujiangjun.example.dao.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        
+        <!-- 仅用于测试，实际开发时请自行更改， -->
+        <table tableName="c_param_config" domainObjectName="ParamConfig"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
